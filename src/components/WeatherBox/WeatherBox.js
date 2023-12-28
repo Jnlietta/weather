@@ -24,7 +24,7 @@ const WeatherBox = props => {
   return (
     <section>
       <PickCity action={handleCityChange}/>
-      <WeatherSummary />
+      <WeatherSummary weatherData={weatherData}/>
       <Loader />
     </section>
   )
