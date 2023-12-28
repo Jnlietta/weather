@@ -1,6 +1,6 @@
 import styles from './WeatherSummary.module.scss';
 
-const WeatherSummary = ({weatherData}) => {
+const WeatherSummary = weatherData => {
   return (
     <section className={styles.weatherSummary}>
       <img
