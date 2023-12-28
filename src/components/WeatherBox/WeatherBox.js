@@ -2,6 +2,7 @@ import PickCity from '../PickCity/PickCity';
 import WeatherSummary from '../WeatherSummary/WeatherSummary';
 import Loader from '../Loader/Loader';
 import { useCallback, useState } from 'react';
+import ErrorBox from '../ErrorBox/ErrorBox';
 
 const WeatherBox = props => {
   const [weatherData, setWeatherData] = useState('');
@@ -35,6 +36,7 @@ const WeatherBox = props => {
       <PickCity action={handleCityChange}/>
       { (weatherData && pending===false) && <WeatherSummary {...weatherData} /> }
       { pending===true && <Loader /> }
+      <ErrorBox />
     </section>
   )
 };
