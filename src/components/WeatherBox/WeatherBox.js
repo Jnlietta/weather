@@ -7,8 +7,10 @@ import ErrorBox from '../ErrorBox/ErrorBox';
 const WeatherBox = props => {
   const [weatherData, setWeatherData] = useState('');
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleCityChange = useCallback(city => {
+    setError(false);
     setPending(true);
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=b90a673343f695c945721acd1ffcf17f&units=metric`) //dzieki units=metric dane beda w st celsjusza a nie kelvina
     .then(res => {
@@ -24,7 +26,7 @@ const WeatherBox = props => {
           });
         });
       } else {
-        alert('ERROR!')
+        setError(true);
       }
     });
   }, []);
@@ -34,9 +36,9 @@ const WeatherBox = props => {
   return (
     <section>
       <PickCity action={handleCityChange}/>
-      { (weatherData && pending===false) && <WeatherSummary {...weatherData} /> }
-      { pending===true && <Loader /> }
-      <ErrorBox />
+      { (weatherData && !pending) && <WeatherSummary {...weatherData} /> }
+      { (pending && !error) && <Loader /> }
+      { error && <ErrorBox /> }
     </section>
   )
 };
