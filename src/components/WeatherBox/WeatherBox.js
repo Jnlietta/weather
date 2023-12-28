@@ -10,15 +10,21 @@ const WeatherBox = props => {
   const handleCityChange = useCallback(city => {
     setPending(true);
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=b90a673343f695c945721acd1ffcf17f&units=metric`) //dzieki units=metric dane beda w st celsjusza a nie kelvina
-    .then(res => res.json())
-    .then(data => {
-      setPending(false);
-      setWeatherData({
-        city: data.name,
-        temp: data.main.temp,
-        icon: data.weather[0].icon,
-        description: data.weather[0].main
-      });
+    .then(res => {
+      if(res.status === 200) {
+        return res.json()
+        .then(data => {
+          setPending(false);
+          setWeatherData({
+            city: data.name,
+            temp: data.main.temp,
+            icon: data.weather[0].icon,
+            description: data.weather[0].main
+          });
+        });
+      } else {
+        alert('ERROR!')
+      }
     });
   }, []);
 
