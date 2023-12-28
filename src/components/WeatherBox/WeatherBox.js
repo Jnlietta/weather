@@ -17,13 +17,13 @@ const WeatherBox = props => {
       if(res.status === 200) {
         return res.json()
         .then(data => {
-          setPending(false);
           setWeatherData({
             city: data.name,
             temp: data.main.temp,
             icon: data.weather[0].icon,
             description: data.weather[0].main
           });
+          setPending(false);
         });
       } else {
         setError(true);
