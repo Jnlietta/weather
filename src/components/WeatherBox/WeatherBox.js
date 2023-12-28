@@ -23,12 +23,12 @@ const WeatherBox = props => {
             icon: data.weather[0].icon,
             description: data.weather[0].main
           });
-          setPending(false);
         });
       } else {
         setError(true);
       }
     });
+    setPending(false);
   }, []);
 
   console.log(weatherData);
@@ -36,7 +36,7 @@ const WeatherBox = props => {
   return (
     <section>
       <PickCity action={handleCityChange}/>
-      { (weatherData && !pending) && <WeatherSummary {...weatherData} /> }
+      { (weatherData && !pending && !error) && <WeatherSummary {...weatherData} /> }
       { (pending && !error) && <Loader /> }
       { error && <ErrorBox /> }
     </section>
