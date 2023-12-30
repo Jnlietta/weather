@@ -23,12 +23,12 @@ const WeatherBox = props => {
             icon: data.weather[0].icon,
             description: data.weather[0].main
           });
+          setPending(false);
         });
       } else {
         setError(true);
       }
     });
-    setPending(false);
   }, []);
 
   console.log(weatherData);
